@@ -1,6 +1,6 @@
 # Business Case   
 The current university systems in place are very disconnected and inefficient at relaying information outward.  
-Communication is mostly done through LMS, Emails and Web portals which can be very time consuming for quick questions or even great concerns.  
+Communication is mostly done through LMS, Emails and Web portals which can be very time consuming for quick questions and great concerns.  
 
 A fix to this problem would be the implementation of an AI-Powered Digital Assistant Plateform (AIDAP).  
 AIDAP fixes this problem by giving users an unified, quick and interactive interface by leveraging the power of AI.  
