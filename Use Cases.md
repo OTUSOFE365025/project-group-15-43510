@@ -6,3 +6,4 @@
 | **UC-2: View Class Analytics** | A lecturer asks AIDAP for a summary of student performance like average grade, attendance, engagement. AIDAP retrieves and aggregates data from the LMS to present analytics. | R1, R3, R5, RL3, RL6, RL7 |
 | **UC-3: System Monitoring and Maintenance**| The system maintainer monitors the latency, errors and model performance via dashboards and allowing deployments of updates with zero downtime. |R7, RM1, RM2, RM4 |
 | **UC-4: Manage Notifications** | A student or lecturer configures and receives notifications for deadlines, announcements, and events through text or voice. AIDAP delivers personalized updates via user controlled preference. |R2, R4, RS2, RS6, RL4|
+![Alt text]Use Case Diagram.png
