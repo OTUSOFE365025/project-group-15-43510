@@ -1,6 +1,6 @@
 Project Overview
 AIDAP is an AI-powered conversational assistant for universities. Students, faculty, and administrators can ask questions and get information about courses, schedules, deadlines, and announcements using natural language (text or voice).
-Key Features: Natural language queries, multi-platform access (web/mobile/voice), integration with LMS and university systems, personalized notifications.
+Key Features: Natural language queries, multi-platform access, integration with LMS and university systems, personalized notifications.
 
 Deliverables
 1. Use Case Models
@@ -62,17 +62,3 @@ UseCase_Relationships.md - Detailed use case documentation
 UseCase_Diagram_Legend.md - Explanation of use case diagram
 AIDAP_UseCase_Diagram.png - Visual UML diagram
 AIDAP_UseCase_Diagram.puml - PlantUML source file
-
-
-Next Steps
-Deliverable 2 (Due Nov 16): ADD Iterations 1 & 2
-
-Select reference architecture
-Create deployment diagrams
-Define major components and interfaces
-
-Deliverable 3 (Due Dec 6): ADD Iteration 3 & ATAM Review
-
-Complete architectural design
-Implement use case
-Perform ATAM scenario analysis
