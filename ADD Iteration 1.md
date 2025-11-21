@@ -240,9 +240,9 @@ The goal of this iteration is to establish the overall structure of the AIDAP sy
 
 # Step 6: Sketch Views and Record Design Decisions
 
-# ![][image1]![][image2]
+# ![][image1.png]![][image2.png]
 
-![][image3]
+![][image3.png]
 
 ### Client Side
 
