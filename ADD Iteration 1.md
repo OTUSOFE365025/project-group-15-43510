@@ -181,7 +181,10 @@ The Rich Internet Application can be broken down into 3 different layers. These 
 
 
 # Step 6: Sketch Views and Record Design Decisions
+![Client Side](image1.png)![Server Side](image2.png)
+![External Systems](image3.png)
 
+![Deployment](image4.png)
 # Step 7: Analysis of Current Design
 
 ## **Driver Analysis Table**
