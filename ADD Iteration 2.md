@@ -2,51 +2,63 @@
 
 # Step 1: Review Inputs
 
-## **Purpose of This Iteration**
+## **Design Purpose**
 
-Iteration 2 focuses on refining the AIDAP system to improve performance, privacy, maintainability, scalability, and availability. This iteration introduces enhancements such as caching, load balancing, model version control, and monitoring, addressing partially completed drivers from Iteration 1.
+This iteration refines the architecture created in Iteration 1 by introducing enhancements required to meet the performance, scalability, privacy, and maintainability requirements that were only partially addressed in the initial design. The improved design focuses on operational components such as caching, load balancing, monitoring, and model management.
 
-## **Business Need**
+## **Business Case**
 
-AIDAP must function reliably at scale while supporting thousands of concurrent users and multiple integrations. Iteration 2 ensures the system can meet strict performance and availability requirements needed for real campus environments.
+As AIDAP grows to support more students, lecturers, and administrators, it must handle high load efficiently, maintain strict privacy standards, and allow maintainers to push updates without downtime. Iteration 2 ensures the system can support five thousand concurrent users, produce responses within two seconds, and provide reliable monitoring and maintainability for the university’s technical team.
 
-## **Updated Drivers for This Iteration**
+## **Primary Functional Requirements (Iteration 2 Focus)**
 
-### Functional Drivers:
+The key functional drivers addressed in this iteration include:
 
-* UC-1: Retrieve lecture announcement  
-  Requires faster access paths and consistent performance.
+* R1: Conversational access with improved response speed  
+* R3: Enhanced integration stability with LMS, Registration, and Calendar  
+* R5: Improved AI response handling and model performance  
+* R7: Operational improvements for cloud scalability and uptime requirements  
 
-* UC-2: View Class Analytics  
-  Requires improved backend responsiveness and resilience.
+### Use Cases
 
-* UC-3: System Monitoring and Maintenance  
-  Requires real time operational visibility and zero downtime updates.
+| ID | Description | Associated Requirement ID |
+| :---- | :---- | :---- |
+| UC-1: Retrieve lecture announcement | Must achieve faster response time with caching and routing improvements | R1, R3, R5, R6, RS1, RS10 |
+| UC-2: View Class Analytics | Must improve query speed and reduce request load through caching and service scaling | R1, R3, R5, RL3, RL6, RL7 |
+| UC-3: System Monitoring and Maintenance | Must provide visibility into system load, latency, errors, and allow updates with zero downtime | R7, RM1, RM2, RM4 |
+| UC-4: Manage Notifications | Must improve reliability of event delivery with load balancing and more stable routing | R2, R4, RS2, RS6, RL4 |
 
-* UC-4: Manage Notifications  
-  Requires more reliable event delivery pipelines.
+### Quality Attribute Scenarios
 
-### Quality Attribute Drivers:
+| ID | Quality Attribute | Scenario | Associated Use Case |
+| :---- | :---- | :---- | :---- |
+| QA-1 | Performance | AIDAP must respond within two seconds even under heavy load through caching and load balancing | UC-1 |
+| QA-2 | Privacy | Stronger access enforcement at the gateway and improved audit logging | UC-3 |
+| QA-3 | Maintainability | AI models and backend services must be updatable without disrupting ongoing sessions | UC-3 |
+| QA-4 | Availability/Scalability | AIDAP must use autoscaling and load balancing to sustain five thousand concurrent users | UC-1, UC-2, UC-3, UC-4 |
+| QA-5 | Reliability | Notification and analytics services must remain stable even during external system failures | UC-4 |
 
-* QA-1: Performance  
-  Improve latency to consistently meet the two second requirement using caching and optimized request routing.
+### Constraints
 
-* QA-2: Privacy  
-  Strengthen authentication, logging, and request validation across services.
+| ID | Constraint |
+| :---- | :---- |
+| CON-1 | Must support five thousand concurrent users using scalable microservices |
+| CON-2 | Must maintain 99.5 percent uptime with redundant deployments |
+| CON-3 | Must strengthen SSO token validation at the API Gateway |
+| CON-4 | Must improve backup and recovery processes with operational monitoring |
+| CON-5 | Must remain cloud-native and support autoscaling |
+| CON-6 | Must implement privacy controls including enhanced logging and secure model handling |
 
-* QA-3: Maintainability  
-  Introduce version controlled AI models and reduce cross service dependencies.
+### Concerns
 
-* QA-4: Availability and Scalability  
-  Ensure the system scales horizontally and remains available during peak load.
-
-### Constraint Drivers:
-
-* CON-1: Support five thousand concurrent users  
-* CON-2: Ninety nine point five percent uptime  
-* CON-3: University SSO integration  
-* CON-4: Disaster recovery  
-* CON-5: Cloud-native deployment  
+| ID | Concern |
+| :---- | :---- |
+| CRN-1 | Privacy protection must be strengthened through centralized authentication and logging |
+| CRN-2 | Data integrity must be preserved when cached values differ from LMS data |
+| CRN-3 | Authorization must be validated at a single, reliable entry point |
+| CRN-4 | Response time must be consistently under two seconds during peak periods |
+| CRN-5 | External integrations must be resilient to outages and slow responses |
+| CRN-6 | AI model management must avoid performance regression or increased cost |
 
 ---
 
@@ -54,139 +66,133 @@ AIDAP must function reliably at scale while supporting thousands of concurrent u
 
 ## **Iteration Goal**
 
-The goal of Iteration 2 is to strengthen the architectural model by adding operational layers that improve system performance, availability, and maintainability. This is done through caching, load balancing, monitoring, and enhanced routing.
+The goal of Iteration 2 is to enhance the architecture by improving performance, reliability, privacy, and maintainability. This includes introducing a distributed cache, load balancer, enhanced gateway, monitoring service, autoscaling capabilities, and a model management component.
 
 ## **Drivers Selected for Iteration 2**
 
 ### Functional Drivers:
-* UC-3 System Monitoring and Maintenance  
-* UC-1 Retrieve Announcements  
-* UC-2 View Analytics  
+
+* UC-1: Lecture announcement retrieval  
+* UC-2: Class analytics retrieval  
+* UC-3: Monitoring and maintenance  
+* UC-4: Notification delivery  
 
 ### Quality Attribute Drivers:
-* QA-1 Performance  
-* QA-3 Maintainability  
-* QA-4 Availability and Scalability  
+
+* QA-1: Performance  
+* QA-3: Maintainability  
+* QA-4: Availability and Scalability  
+* QA-5: Reliability  
 
 ### Constraint Drivers:
-* CON-1 Peak concurrency  
-* CON-2 Uptime guarantee  
-* CON-3 Stronger authentication handling  
+
+* CON-1: Concurrent user support  
+* CON-2: Uptime requirement  
+* CON-3: Enhanced security enforcement  
+* CON-5: Cloud-native scalability  
 
 ---
 
 # Step 3: Elements to Decompose
 
-Iteration 2 decomposes the **AIDAP Backend Processing and Operational Services**, refining the system parts responsible for AI reasoning, routing, caching, and system monitoring.
+Iteration 2 focuses on decomposing operational and performance-critical server-side components to meet quality attribute requirements.
 
 ## **Element Selected for Decomposition**
 
-AIDAP Backend Processing Services
+AIDAP Backend Processing and Operational Layer
 
-This includes routing, conversation handling, NLP, aggregation, and operational control.
+This includes the components responsible for routing, conversation handling, NLP, caching, model management, and monitoring.
 
 ---
 
 # Step 4: Choose Design Concepts
 
-To support Iteration 2 goals, these design concepts were selected:
+### Distributed Cache Layer  
+Improves performance for frequently accessed resources from LMS and registration systems.
 
-### **One: Distributed Cache Layer**
-Improves performance by storing frequently used LMS and analytics data to speed up repeated requests.
+### Enhanced API Gateway  
+Adds centralized rate limiting, token validation, and request routing.
 
-### **Two: API Gateway Enhancements**
-Adds request throttling, token validation, and centralized routing rules.
+### Load Balancer  
+Improves system performance, increases availability, and enables horizontal scaling.
 
-### **Three: Load Balancer**
-Distributes traffic across multiple backend replicas to maintain performance during peak periods.
+### AI Model Manager  
+Allows maintainers to switch, update, or roll back AI models without downtime.
 
-### **Four: AI Model Manager**
-Handles model versioning, updates, and rollbacks with zero downtime.
+### Monitoring and Logging Service  
+Provides real time metrics, logs, and alerting for maintainers.
 
-### **Five: Monitoring and Logging**
-Provides dashboards for latency, throughput, error rates, and resource usage, supporting UC-3.
-
-### **Six: Autoscaling**
-Automatically adjusts service replicas based on demand.
+### Autoscaling Controller  
+Responds to changes in system load by increasing or decreasing running service replicas.
 
 ---
 
 # Step 5: Instantiate Architectural Elements, Allocate Responsibilities, and Define Interfaces
 
-## **New or Enhanced Elements**
+## Enhanced Elements Introduced in Iteration 2
 
-### **API Gateway**
-- Enforces token validation
-- Applies rate limits
-- Routes requests to backend services
-- Writes structured request logs
+### **1. API Gateway**
+- Validates authentication tokens  
+- Applies rate limits  
+- Routes requests to appropriate services  
+- Logs request metadata  
 
-### **Load Balancer**
-- Distributes traffic across backend nodes
-- Handles failover when a node becomes unavailable
+### **2. Load Balancer**
+- Splits incoming traffic across multiple backend replicas  
+- Provides failover support  
 
-### **Cache Service**
-- Stores LMS and calendar responses
-- Ensures sub-two second user interactions
-- Reduces external API load
+### **3. Cache Service**
+- Stores frequently accessed announcements, analytics, and schedules  
+- Reduces external API calls  
 
-### **AI Model Manager**
-- Manages model versions
-- Supports rolling upgrades and rollbacks
-- Selects the most appropriate model for each request
+### **4. AI Model Manager**
+- Manages model version control  
+- Supports switching and rolling back models  
 
-### **Monitoring and Logging Service**
-- Collects metrics such as latency, error frequency, and usage statistics
-- Supports alerting for anomalies
-- Provides dashboards for maintainers
+### **5. Monitoring and Logging**
+- Collects latency, error, throughput, and operational metrics  
+- Supports alerting  
 
-### **Autoscaling Unit**
-- Monitors resource usage
-- Adds or removes service replicas automatically
+### **6. Autoscaling Unit**
+- Adds or removes backend replicas  
+- Uses monitoring data to decide scaling actions  
 
 ---
 
-## **Updated Interfaces**
+## Interfaces
 
-### **Client → Gateway**
-- Submit chat messages
-- Request analytics
-- Manage notifications
-- Authenticate session tokens
+### **Client → Server**
+- `/api/chat`  
+- `/api/analytics`  
+- `/api/notifications`  
+- `/api/auth`  
 
-### **Gateway → Backend Services**
-- Route conversation requests
-- Route analytics requests
-- Enforce rate limits
-- Block unauthorized requests
+### **Server → Cache**
+- get entry  
+- write entry  
+- invalidate entry  
 
-### **Backend Services → Cache**
-- get(key)
-- set(key, value)
-- invalidate(key)
-
-### **Backend Services → Model Manager**
-- loadCurrentModel()
-- switchModel(version)
+### **Server → Model Manager**
+- fetch active model  
+- switch model  
 
 ### **Monitoring Interfaces**
-- exportMetrics()
-- logEvent()
-- sendAlert()
+- log event  
+- send alert  
+- fetch metrics  
 
 ---
 
 # Step 6: Sketch Views and Record Design Decisions
 
-## **Design Decisions Made in Iteration 2**
+### Design Decisions Added in Iteration 2
 
-* Added caching to support performance scenarios  
-* Introduced load balancing and autoscaling to support five thousand concurrent users  
-* Enhanced API Gateway to improve privacy and access control  
-* Added AI Model Manager to support maintainability and model version control  
-* Added Monitoring and Logging to support UC-3 and privacy requirements  
-* Strengthened boundaries between services for improved modifiability  
-* Reduced reliance on external systems by caching and retry mechanisms  
+* Introduced caching to support performance needs  
+* Added load balancing and autoscaling for availability  
+* Strengthened API Gateway to support security and privacy  
+* Added AI Model Manager for maintainability  
+* Added Monitoring and Logging to support operational visibility  
+* Reduced dependency on external systems via caching and retry logic  
 
 ---
 
@@ -196,22 +202,22 @@ Automatically adjusts service replicas based on demand.
 
 | Driver | Not Addressed | Partially Addressed | Completely Addressed | Design Decisions Made |
 | :---- | :---- | :---- | :---- | :---- |
-| UC-1 Retrieve lecture announcement |  |  | ✔ | Caching and load balancing provide faster data access. |
-| UC-2 View Class Analytics |  |  | ✔ | Cached analytics and improved aggregation enhance speed. |
-| UC-3 Monitoring and Maintenance |  |  | ✔ | Monitoring dashboards, logs, and metrics added. |
-| UC-4 Manage Notifications |  | ✔ |  | Notification routing improved. Queue refinement pending. |
-| QA-1 Performance |  |  | ✔ | Cache layer improves latency significantly. |
-| QA-2 Privacy |  | ✔ |  | Stronger routing control added at gateway. Full encryption design pending. |
-| QA-3 Maintainability |  |  | ✔ | Model Manager allows zero downtime model updates. |
-| QA-4 Availability and Scalability |  |  | ✔ | Load balancing, autoscaling, and redundancy implemented. |
-| CON-1 Five thousand users |  |  | ✔ | Horizontal scaling supports peak periods. |
-| CON-2 Ninety nine point five percent uptime |  | ✔ |  | Redundant nodes provide stability. Disaster recovery procedures still in progress. |
-| CON-3 SSO authentication |  |  | ✔ | Gateway consolidates token enforcement. |
-| CON-4 Backup and recovery |  | ✔ |  | Backup defined, recovery automation pending. |
-| CRN-1 Privacy compliance |  | ✔ |  | Logging and access enforcement support compliance. |
-| CRN-2 Data integrity |  | ✔ |  | Cache invalidation needs additional refinement. |
-| CRN-3 Secure authorization |  |  | ✔ | Gateway and identity service maintain secure access. |
-| CRN-4 AI response time |  |  | ✔ | Cache and routing improvements maintain the two second requirement. |
-| CRN-5 Integration complexity |  | ✔ |  | Adapters and caching help reduce dependency impact. |
-| CRN-6 AI cost management | ✔ |  |  | No final model optimization strategy defined. |
+| UC-1 Retrieve lecture announcement |  |  | ✔ | Caching and optimized routing improve performance |
+| UC-2 View Class Analytics |  |  | ✔ | Faster queries from caching and scalable analytics processing |
+| UC-3 Monitoring and Maintenance |  |  | ✔ | Monitoring dashboards and logs improve maintainability |
+| UC-4 Manage Notifications |  | ✔ |  | Routing improved. Queueing enhancements still pending |
+| QA-1 Performance |  |  | ✔ | Distributed caching reduces latency |
+| QA-2 Privacy |  | ✔ |  | Gateway enforces better access control |
+| QA-3 Maintainability |  |  | ✔ | Model Manager supports versioned updates |
+| QA-4 Availability/Scalability |  |  | ✔ | Autoscaling and load balancing |
+| CON-1 Five thousand users |  |  | ✔ | Horizontal scaling supports concurrency |
+| CON-2 Uptime ninety nine point five percent |  | ✔ |  | Redundant deployments |
+| CON-3 SSO authentication |  |  | ✔ | Gateway handles strong authentication |
+| CON-4 Recovery |  | ✔ |  | Monitoring assists in tracking failures |
+| CRN-1 Privacy compliance |  | ✔ |  | Access checks improved |
+| CRN-2 Data integrity |  | ✔ |  | Cache invalidation rules still in refinement |
+| CRN-3 Secure authorization |  |  | ✔ | Centralized gateway controls |
+| CRN-4 AI response time |  |  | ✔ | Cache reduces load on NLP service |
+| CRN-5 Integration complexity |  | ✔ |  | External adapters strengthened |
+| CRN-6 AI cost management | ✔ |  |  | No finalized model optimization strategy |
 
