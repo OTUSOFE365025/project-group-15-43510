@@ -186,7 +186,7 @@ Responds to changes in system load by increasing or decreasing running service r
 # Step 6: Sketch Views and Record Design Decisions
 
 ### Design Decisions Added in Iteration 2
-
+![Deployment](image5.png)
 * Introduced caching to support performance needs  
 * Added load balancing and autoscaling for availability  
 * Strengthened API Gateway to support security and privacy  
