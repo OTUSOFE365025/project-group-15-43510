@@ -183,8 +183,69 @@ The Rich Internet Application can be broken down into 3 different layers. These 
 # Step 6: Sketch Views and Record Design Decisions
 ![Client Side](image1.png)![Server Side](image2.png)
 ![External Systems](image3.png)
+### Client Side
+
+**Presentation Layer**
+- Elements: UI Modules, Controllers, Chat Interface
+- Responsibility: Handles rendering of user interface and user interaction, which includes displaying the interface and capturing user input.
+
+**Business Layer**
+- Elements: Session Management, Context Storage, Input Validation, Message Preprocessing
+- Responsibility: Manages the client-side logic which includes maintaining the user session state, storing the conversation context, and validating and preprocessing messages before sending to server.
+
+**Data Layer**
+- Elements: Data Access Module, Local Cache
+- Responsibility: Handles communication with the server and stores frequently accessed data locally to improve speed and performance.
+
+---
+
+### Server Side
+
+**Service Interface Layer**
+- Elements: API Gateway, Identity & Access Service, Service Endpoints
+- Responsibility: Is the entry point for all requests. Handles routing, authentication, SSO integration, rate limiting, and exposes the REST and GraphQL APIs.
+
+**Application Services Layer**
+- Elements: Conversation Orchestration, Natural Language Processor, Analytics Processing, Data Aggregation, Event Management, Operational Services
+- Responsibility: Core application logic including AI-powered conversation processing, data aggregation from external systems, notification handling, and system monitoring.
+
+**Business Layer**
+- Elements: Business Rules, Domain Entities, Workflow Orchestration
+- Responsibility: Implements domain-specific rules, manages core domain objects (Student, Course, Announcement), and coordinates complex business workflows.
+
+**Data Layer**
+- Elements: Data Access Layer, External System Adapters, Distributed Cache Manager
+- Responsibility: Handles database operations, connections to external university systems, and caching for performance optimization.
+
+---
+
+### External Systems
+
+- Elements: LMS System, Registration System, Calendar System, Email Server
+- Responsibility: University systems that AIDAP integrates with to retrieve courses, schedules, events, and deliver notifications.
 
 ![Deployment](image4.png)
+
+**Load Balancer**
+- Responsibility: Distributes traffic across servers, provides SSL termination and DDoS protection.
+
+**Kubernetes Cluster**
+- Elements: API Gateway, Identity Service, Conversation Orchestration, NLP Service, Data Aggregation, Event Management
+- Responsibility: Hosts all application services with auto-scaling, rolling updates, and container orchestration.
+
+**Data Services**
+- Elements: PostgreSQL, Redis, Message Queue
+- Responsibility: Provides constant storage, caching, and asynchronous event processing.
+
+**External Systems**
+- Elements: LMS, Registration, Calendar, Email, University SSO
+- Responsibility: University infrastructure for user data and authentication.
+
+**Client Devices**
+- Elements: Web Browser, Mobile App, Voice Assistant
+- Responsibility: User access points for interacting with the AIDAP.
+
+
 # Step 7: Analysis of Current Design
 
 ## **Driver Analysis Table**
