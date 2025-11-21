@@ -240,9 +240,9 @@ The goal of this iteration is to establish the overall structure of the AIDAP sy
 
 # Step 6: Sketch Views and Record Design Decisions
 
-# ![][image1.png]![][image2.png]
+# ![Client Side](image1.png)![Server Side](image2.png)
 
-![][image3.png]
+![External Systems](image3.png)
 
 ### Client Side
 
@@ -285,7 +285,7 @@ The goal of this iteration is to establish the overall structure of the AIDAP sy
 | Calendar System | Provide academic events, deadlines, exam schedules |
 | Email Server | Deliver email notifications to users |
 
-### ![][image4]
+### ![Deployment](image4.png)
 
 | Node | Components | Responsibility |
 | :---- | :---- | :---- |
