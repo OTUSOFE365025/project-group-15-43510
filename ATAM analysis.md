@@ -51,3 +51,6 @@ Description: Adding the Response Validator step makes the system safer (better p
 
 Trade-off 3: Easy Scaling vs. Extra Network Calls
 Description: Making the system stateless makes it easy to add more servers (scaling), but it forces us to make extra network calls to fetch user data every time (network overhead).
+
+
+![Alt text for the image](AtamUtilityTree.png)
