@@ -1,4 +1,3 @@
-Include in this file the 7 steps for Iteration 3
 # Iteration 3
 
 This iteration focuses on one part of the Backend Processing Layer from Iteration 2: the **AI Service (NLP Engine)**. Here we treat it as its own **AI Processing Subsystem**, and decompose it further to satisfy performance, reliability, security/privacy, and maintainability drivers for UC-1 (Retrieve Lecture Announcement) and UC-2 (View Class Analytics).
